@@ -1,15 +1,57 @@
 <!doctype html>
+
 <head>
-  <title>Connect 4</title>
+  <title>Connect Four</title>
   <link href="connect4.css" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
+  <header>
+    <h1 class="center">Connect Four</h1>
+  </header>
+  <div id="game">
+    <div id="menu">
+      <p><span class="semi-bold">Hello 👋</span><br> Welcome to this web-based verion of Connect Four! Would you like
+        to play a game? Select a board size and hit Play to get started.</p>
+      <div id="board-size">
+        <p class="semi-bold"> Board Size:</p>
+        <div class="flex-center">
+          <input type="radio" id="small" name="board-size" value="small">
+          <label for="small">Small 4x5</label>
+          <input type="radio" id="medium" name="board-size" value="medium" checked>
+          <label for="medium">Medium 6x8</label>
+          <input type="radio" id="large" name="board-size" value="large">
+          <label for="large">Large 8x11</label>
+        </div>
+      </div>
+      <hr>
+      <div class="center">
+        <button id="start">Play</button>
+      </div>
+    </div>
+    <table id="board"></table>
+    <div id="player-label" class="center">
+    </div>
+  </div>
+  </div>
+  <div id="end-game" style="display:none;">
+    <h2>Game Over!</h2>
+    <p id="end-game-message"></p>
+    <div class="flex-center">
+      <button id="main-menu">Menu</button>
+      <button id="rematch">Rematch</button>
+    </div>
+  </div>
+  <footer class="footer">
+    <p>Created by: Marc Card. For source code visit <a href="https://github.com/MarcACard/connect-four">Github</a>.</p>
+  </footer>
 
-<div id="game">
-  <table id="board"></table>
-</div>
-
-<script src="connect4.js"></script>
+  <script src="connect4.js"></script>
 
 </body>
+
 </html>

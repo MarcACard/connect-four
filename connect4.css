@@ -1,24 +1,117 @@
-/* game board table */
+/* === CSS Resets === */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/* === CSS VARIABLES === */
+:root {
+  --p1-color: #ff3333;
+  --p2-color: #3333ff;
+}
+
+/* === UTILITIY CLASSES === */ 
+.semi-bold{
+  font-weight: 600;
+}
+
+.center {
+  text-align: center;
+}
+
+.flex-center { 
+  display: flex;
+  justify-content: space-around;
+}
+
+/* === LAYOUT & BACKGROUND === */
+html, body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+body { 
+  background: linear-gradient(to Right, var(--p1-color), var(--p2-color));
+  display: flex;
+  flex-direction: column;
+}
+
+h1 { 
+  font-size: 3em;
+  font-weight: 900;
+  color: #FFF;
+}
+
+.footer { 
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  margin: 0 auto;
+  color: #FFF;
+  font-size: .75em;
+  text-align: center;
+}
+
+.footer a {
+  color: #FFF;
+}
+
+/* === GAME BOARD === */
+/* --- Game Board Container --- */
+#game { 
+  position: relative;
+  background: #FFF;
+  border-radius:10px;
+  padding: 20px 20px;
+  margin: 0 auto;
+  transition: border .5s ease;
+}
+
+/* --- Game Board Border --- */
+/* Outside Border:
+  Two Layer Border: https://css-tricks.com/snippets/css/multiple-borders/ 
+*/
+#game:after { 
+  content: '';
+  position: absolute;
+  top:-8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border-radius: 12px;
+  background: #FFF;
+  z-index:-1;
+}
+
+/* --- Player's Turn Border --- */
+/* Classes are added/removed through JS as each player makes their move. */
+.p1-turn {
+  border: 5px solid var(--p1-color);
+}
+
+.p2-turn {
+  border: 5px solid var(--p2-color);
+}
+
+#player-label > p { 
+  margin-bottom: 0;
+}
+
+/* --- Game Board Table--- */
+/* board td are individual cells that will hold game pieces */
+#board {
+  margin: 0 auto;
+}
 
 #board td {
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 75px;
   border: solid 1px #666;
 }
 
-/* pieces are div within game table cells: draw as colored circles */
-
-.piece {
-  /* TODO: make into circles */
-  margin: 5px;
-  width: 80%;
-  height: 80%;
-}
-
-/* TODO: make pieces red/blue,  depending on player 1/2 piece */
-
 /* column-top is table row of clickable areas for each column */
-
 #column-top td {
   border: dashed 1px lightgray;
 }
@@ -26,3 +119,122 @@
 #column-top td:hover {
   background-color: gold;
 }
+
+/* --- Game Pieces --- */
+/* pieces are div within game table cells: draw as colored circles */
+.piece {
+  width: 85%;
+  height: 85%;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.p1-piece {
+  background-color: var(--p1-color);
+  border: 3px dotted #E52D2D;
+}
+.p2-piece {
+  background-color: var(--p2-color);
+  border: 3px dotted #2828CC;
+}
+
+/* --- Game Board Menu --- */
+/* Menu is within the Game Board Container. Only visible at the start before the game */
+#menu { 
+  max-width: 600px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#menu > div {
+  width:100%;
+}
+
+#menu > hr {
+  width: 80%;
+  border: 1px solid lightgray;
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+
+/* radio button below label: https://stackoverflow.com/questions/463785/place-radio-button-label-above-using-css */
+input[type="radio"] {
+  display: none;
+}
+label {
+  text-align: center;
+  padding: 10px;
+  border: 2px solid lightgray;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+label:hover, input[type="radio"]:checked+label{
+  border: 2px solid gold;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#start {
+  font-size: 1.2em;
+  font-weight: 600;
+  border: none;
+  /* border-bottom: 2px solid black; */
+  border-radius: 4px;
+  cursor: pointer;
+  height: 45px;
+  width: 125px;
+  /* background: linear-gradient(to Right, var(--p2-color), var(--p1-color)); */
+  background-color: gold;
+  color: #000;
+  box-shadow: 0 4px 0px rgba(0,0,0,0.5);
+}
+
+
+#start:active, #start:hover{
+  transform:translateY(4px);
+  border-bottom-width: 2px;
+  box-shadow: none;
+}
+
+/* === End Game Modal === */ 
+#end-game {
+  position: absolute;
+  background: rgba(255, 255, 255, .95);
+  width: 300px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  margin-left: -150px;
+  margin-top: -100px;
+  border-radius: 10px;
+  box-shadow: 1px 2px 14px -1px rgba(0,0,0,0.75);
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#end-game > h2 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#end-game button {
+  border:none;
+  background-color: gold;
+  width: 100px;
+  height: 26px;
+  border-radius: 3px;
+}
+
+#end-game button:hover {
+  box-shadow: inset 0px 5px 15px 0px rgba(0, 0, 0, 0.15);
+  transform: translateY(2px);
+}
+
+#end-game > div {
+  width: 100%;
+}
+
